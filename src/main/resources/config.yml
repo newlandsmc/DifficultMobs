@@ -7,3 +7,4 @@ difficulty:
   divide-by: 100.0
   hostile-only: true
   player-distance: 512
+natural-reason-only: true

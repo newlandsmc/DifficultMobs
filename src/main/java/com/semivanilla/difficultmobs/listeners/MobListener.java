@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class MobListener implements Listener {
         LivingEntity entity = event.getEntity();
         if (DifficultyManager.hostileOnly && ! (event.getEntity() instanceof Monster)) return;
 
-        if (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL && event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.DEFAULT) return;
+        if (DifficultyManager.naturalOnly && (event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.NATURAL && event.getSpawnReason() != CreatureSpawnEvent.SpawnReason.DEFAULT)) return;
 
         Player closestPlayer = null;
         double distance = DifficultyManager.playerDistance;
@@ -41,5 +42,4 @@ public class MobListener implements Listener {
         );
         entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(newHealth);
     }
-
 }
