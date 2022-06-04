@@ -9,12 +9,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.metadata.MetadataValue;
 
 public class DifficultyManager {
-    private static double DIVIDE_BY = 100.0;
+    private static double DIVIDE_BY = 92.0;
     public static boolean hostileOnly = true, naturalOnly = true, usePower = false;
     public static double playerDistance = 512;
 
     public void init(DifficultMobs plugin) {
-        DIVIDE_BY = plugin.getConfig().getDouble("difficulty.divide-by", 100.0);
+        DIVIDE_BY = plugin.getConfig().getDouble("difficulty.divide-by", 92.0);
         hostileOnly = plugin.getConfig().getBoolean("difficulty.hostile-only", true);
         playerDistance = plugin.getConfig().getDouble("difficulty.player-distance", 512);
         usePower = plugin.getConfig().getBoolean("difficulty.use-power-level", false);
