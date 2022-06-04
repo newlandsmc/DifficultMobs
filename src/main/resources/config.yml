@@ -1,10 +1,8 @@
 difficulty:
   # This determines the EXTRA mob health in relation to the player's power level.
-  # The forumla is: ((powerlevel / 10) / divide-by) * basehealth
-  # The result of this formula is added to the base mob health.
-  # If divide-by is 100.0, then mob health will increase 1% every 10 levels, for exmaple
-  # At level 50, and a base health of 20, the result will be 21
-  divide-by: 100.0
+  # The forumla is: mob health = ( ( defense-5 ) / divide-by ) * base_health + base_health
+  divide-by: 92
   hostile-only: true
   player-distance: 512
+  use-power-level: false # if false, it will use defense level
 natural-reason-only: true

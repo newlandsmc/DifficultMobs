@@ -29,17 +29,20 @@ public class MobListener implements Listener {
         Player closestPlayer = null;
         double distance = DifficultyManager.playerDistance;
         List<Player> onlinePlayers = Bukkit.getWorld(entity.getWorld().getUID()).getPlayers();
-        for(Player pl : onlinePlayers)
-            if(entity.getLocation().distance(pl.getLocation()) < distance) {
+        for(Player pl : onlinePlayers) {
+            if (DifficultMobs.getInstance().getDifficultyManager().ignorePlayer(pl)) continue;
+            if (entity.getLocation().distance(pl.getLocation()) < distance) {
                 distance = entity.getLocation().distance(pl.getLocation());
                 closestPlayer = pl;
             }
+        }
         if(closestPlayer == null) return;
 
         double newHealth = DifficultMobs.getInstance().getDifficultyManager().getMobHealth(
                 entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue(),
                 closestPlayer
         );
+        if (newHealth < 0) newHealth = 1d;
         entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(newHealth);
     }
 }
