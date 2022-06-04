@@ -1,0 +1,4 @@
+name: DifficultMobs
+version: '${project.version}'
+main: com.semivanilla.difficultmobs.DifficultMobs
+api-version: 1.18
