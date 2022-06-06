@@ -9,7 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.metadata.MetadataValue;
 
 public class DifficultyManager {
-    private static double DIVIDE_BY = 92.0;
+    private static double DIVIDE_BY = 92.0d;
     public static boolean hostileOnly = true, naturalOnly = true, usePower = false;
     public static double playerDistance = 512;
 
@@ -33,9 +33,9 @@ public class DifficultyManager {
     }
 
     public double getMobHealth(double baseHealth, Player player) {
-        int powerLevel = getPowerLevel(player);
+        double powerLevel = getPowerLevel(player);
         //mob health = ( ( defense-5 ) / divide-by ) * base_health + base_health
-        return ((powerLevel - 5) / DIVIDE_BY) * baseHealth + baseHealth;
+        return ((powerLevel - 5d) / DIVIDE_BY) * baseHealth + baseHealth;
         /* //Old Algorithm
         int tens = powerLevel / 10;
 

@@ -44,5 +44,6 @@ public class MobListener implements Listener {
         );
         if (newHealth < 0) newHealth = 1d;
         entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(newHealth);
+        entity.setHealth(newHealth);
     }
 }
