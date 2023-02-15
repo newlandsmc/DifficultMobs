@@ -5,4 +5,7 @@ difficulty:
   hostile-only: true
   player-distance: 512
   use-power-level: false # if false, it will use defense level
+  random:
+    enabled: true
+    amount: 0.10 # Randomly vary the player's power level by this percentage, e.g: 0.10 = 10%
 natural-reason-only: true

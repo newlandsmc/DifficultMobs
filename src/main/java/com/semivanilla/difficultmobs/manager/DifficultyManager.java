@@ -5,13 +5,16 @@ import com.archyx.aureliumskills.skills.Skills;
 import com.semivanilla.difficultmobs.DifficultMobs;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventPriority;
 import org.bukkit.metadata.MetadataValue;
+
+import java.util.Random;
 
 public class DifficultyManager {
     private static double DIVIDE_BY = 92.0d;
-    public static boolean hostileOnly = true, naturalOnly = true, usePower = false;
-    public static double playerDistance = 512;
+    public static boolean hostileOnly = true, naturalOnly = true, usePower = false, randomEnabled;
+    public static double playerDistance = 512, randomAmount = 0.1;
+
+    private static final Random random = new Random();
 
     public void init(DifficultMobs plugin) {
         DIVIDE_BY = plugin.getConfig().getDouble("difficulty.divide-by", 92.0);
@@ -19,6 +22,9 @@ public class DifficultyManager {
         playerDistance = plugin.getConfig().getDouble("difficulty.player-distance", 512);
         usePower = plugin.getConfig().getBoolean("difficulty.use-power-level", false);
         naturalOnly = plugin.getConfig().getBoolean("natural-reason-only", true);
+
+        randomEnabled = plugin.getConfig().getBoolean("difficulty.random.enabled", false);
+        randomAmount = plugin.getConfig().getDouble("difficulty.random.amount", 0.1); // Randomly vary the player's power level by this percentage
     }
 
     public int getPowerLevel(Player player) {
@@ -29,12 +35,26 @@ public class DifficultyManager {
         if (aurPdata == null) {
             return 1;
         }
-        return aurPdata.getPowerLevel();
+        int power = aurPdata.getPowerLevel();
+        if (power < 1) {
+            return 1;
+        }
+        if (randomEnabled) {
+            // Randomly vary the player's power level by percentage
+            double randomAmount = random.nextDouble() * DifficultyManager.randomAmount;
+            if (random.nextBoolean()) {
+                power += randomAmount * power;
+            } else {
+                power -= randomAmount * power;
+            }
+        }
+        return power;
     }
 
     public double getMobHealth(double baseHealth, Player player) {
         double powerLevel = getPowerLevel(player);
         //mob health = ( ( defense-5 ) / divide-by ) * base_health + base_health
+
         return ((powerLevel - 5d) / DIVIDE_BY) * baseHealth + baseHealth;
         /* //Old Algorithm
         int tens = powerLevel / 10;
