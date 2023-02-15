@@ -29,7 +29,7 @@ public class DifficultyManager {
 
     public int getPowerLevel(Player player) {
         if (!usePower) {
-            return AureliumAPI.getSkillLevel(player, Skills.DEFENSE);
+            return randomVary(AureliumAPI.getSkillLevel(player, Skills.DEFENSE));
         }
         com.archyx.aureliumskills.data.PlayerData aurPdata = AureliumAPI.getPlugin().getPlayerManager().getPlayerData(player);
         if (aurPdata == null) {
@@ -39,17 +39,22 @@ public class DifficultyManager {
         if (power < 1) {
             return 1;
         }
+        return randomVary(power);
+    }
+
+    public int randomVary(int in) {
         if (randomEnabled) {
             // Randomly vary the player's power level by percentage
             double randomAmount = random.nextDouble() * DifficultyManager.randomAmount;
             if (random.nextBoolean()) {
-                power += randomAmount * power;
+                in += randomAmount * in;
             } else {
-                power -= randomAmount * power;
+                in -= randomAmount * in;
             }
         }
-        return power;
+        return in;
     }
+
 
     public double getMobHealth(double baseHealth, Player player) {
         double powerLevel = getPowerLevel(player);
