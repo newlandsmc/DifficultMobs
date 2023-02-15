@@ -8,4 +8,8 @@ difficulty:
   random:
     enabled: true
     amount: 0.10 # Randomly vary the player's power level by this percentage, e.g: 0.10 = 10%
+    extra-health:
+      enabled: true
+      chance: 0.02 # 0.02 = 2% - 1/50 chance
+      extra-amount: 0.5 # Apply 50% extra health if the random chance is met
 natural-reason-only: true
